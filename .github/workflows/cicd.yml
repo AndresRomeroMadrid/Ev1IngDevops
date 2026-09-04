@@ -1,0 +1,70 @@
+name: Pipeline CI/CD GitFlow
+
+# Siguiendo el modelo GitFlow, definimos que acciones tomar segun la rama
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+      - 'hotfix/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  Integracion-Continua-CI:
+    name: Build y Test (CI)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Simulacion de Pruebas Unitarias
+        run: echo "Aqui se ejecutarian las pruebas automatizadas (npm test)"
+
+  Despliegue-Continuo-CD:
+    name: Despliegue en AWS Terraform (CD)
+    # Solo desplegamos a produccion si estamos en la rama 'main' y si la fase CI paso exitosamente
+    needs: Integracion-Continua-CI
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./terraform/enviroment/prod
+
+    steps:
+      - name: Descargar codigo del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.0"
+
+      - name: Configurar Credenciales de AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+
+      - name: Inicializar Terraform (Init)
+        run: terraform init
+
+      - name: Validar codigo de Terraform (Validate)
+        run: terraform validate
+
+      - name: Aplicar Infraestructura (Apply)
+        run: terraform apply -auto-approve
