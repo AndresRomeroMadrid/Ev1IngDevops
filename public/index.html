@@ -70,12 +70,48 @@
         .list-item strong {
             color: #333;
         }
+        .ms-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 0;
+            background-color: #2f2f2f;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            height: 41px;
+            margin-bottom: 20px;
+        }
+        .ms-login-btn:hover {
+            background-color: #1f1f1f;
+        }
+        .ms-login-btn .ms-logo {
+            display: grid;
+            grid-template-columns: repeat(2, 10px);
+            grid-template-rows: repeat(2, 10px);
+            gap: 1px;
+        }
+        .ms-login-btn .ms-logo span:nth-child(1) { background-color: #f25022; }
+        .ms-login-btn .ms-logo span:nth-child(2) { background-color: #7fba00; }
+        .ms-login-btn .ms-logo span:nth-child(3) { background-color: #00a4ef; }
+        .ms-login-btn .ms-logo span:nth-child(4) { background-color: #ffb900; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h2>AWS Evaluacion 1</h2>
+        <button type="button" class="ms-login-btn" id="msLoginBtn">
+            <span class="ms-logo">
+                <span></span><span></span><span></span><span></span>
+            </span>
+            Iniciar sesión con Microsoft
+        </button>
         <form id="dataForm">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -98,6 +134,11 @@
     </div>
 
     <script>
+        const msLoginBtn = document.getElementById('msLoginBtn');
+        msLoginBtn.addEventListener('click', function() {
+            alert('Inicio de sesión con Microsoft no implementado. Este botón es solo de interfaz.');
+        });
+
         const form = document.getElementById('dataForm');
         const listaDatos = document.getElementById('listaDatos');
 
