@@ -106,7 +106,7 @@ resource "aws_instance" "web" {
               </head>
               <body>
                   <div class="container">
-                      <h2>Registro (En AWS!)</h2>
+                      <h2>AWS Evaluacion 1</h2>
                       <form id="dataForm">
                           <div class="form-group"><label>Nombre:</label><input type="text" id="nombre" required></div>
                           <div class="form-group"><label>Dirección:</label><input type="text" id="direccion" required></div>
