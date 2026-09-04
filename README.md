@@ -14,13 +14,33 @@ Ademas de la aplicacion, el proyecto incluye toda la configuracion de infraestru
     *   **enviroment/prod/**: Entorno de produccion que hace uso de los modulos anteriores.
     *   **deploy.bat**: Script de Windows para ejecutar el despliegue de Terraform de manera automatizada.
 
-## Flujo de Trabajo y Control de Versiones
+## Estrategias y Convenciones de Desarrollo
 
-Para gestionar el ciclo de vida del codigo en este proyecto, se ha tomado la decision de implementar la estrategia de ramas **GitFlow**.
+Para gestionar el ciclo de vida del codigo de manera colaborativa, profesional y ordenada, se ha implementado la estrategia de ramas **GitFlow** acompañada de las siguientes normativas estrictas para el equipo:
 
-La eleccion de GitFlow se fundamenta en que el proyecto requiere el uso de varias ramas de larga duracion, tales como la rama principal (main o master) y la rama de integracion continua (develop). Ademas, este flujo permite aislar y preparar correctamente versiones consolidadas mediante ramas de publicacion (release/*) y solucionar problemas urgentes en el entorno de produccion mediante ramas de correccion (hotfix/*).
+### 1. Naming de Ramas (Nomenclatura)
+El repositorio se divide en ramas protegidas (`main` y `develop`) y ramas efímeras. Las ramas nuevas deben seguir este formato de nombrado:
+*   `feature/nombre-descriptivo`: Para nuevas funcionalidades o tareas (Ej. `feature/agregar-footer`). Nacen de `develop`.
+*   `bugfix/nombre-del-error`: Para errores encontrados en desarrollo. Nacen de `develop`.
+*   `hotfix/nombre-del-error`: Para parches de emergencia en producción. Nacen de `main`.
+*   `release/vX.X.X`: Para congelar el código antes de un pase a producción. Nacen de `develop`.
 
-Al utilizar GitFlow, logramos gestionar de manera ordenada las combinaciones de codigo extensas (merges grandes) y generamos entregas (releases) claras y explicitas, garantizando la estabilidad de la rama principal en todo momento.
+### 2. Convenciones de Commits
+El proyecto adopta el estandar **Conventional Commits** para mantener un historial limpio, legible y automatizable. Todos los mensajes de commit deben seguir la estructura `tipo(ambito): mensaje`:
+*   `feat:` Para agregar una nueva característica (Ej. `feat(ui): agregar boton de eliminar`).
+*   `fix:` Para solucionar un error (Ej. `fix(terraform): corregir puerto de seguridad`).
+*   `docs:` Para cambios exclusivos en documentacion.
+*   `chore:` Para tareas de mantenimiento que no afectan el codigo de produccion (actualizar dependencias, etc.).
+
+### 3. Estrategias de Revision (Code Review)
+Está estrictamente prohibido hacer push directo a las ramas `main` y `develop`. Todo cambio de codigo debe integrarse a través de un **Pull Request (PR)**.
+*   Todo PR debe ser revisado y aprobado por al menos **1 revisor (Code Review)** antes de poder ser fusionado.
+*   El pipeline de CI (Integracion Continua) configurado en GitHub Actions debe pasar con éxito (checks en verde) obligatoriamente antes de habilitar el boton de merge.
+
+### 4. Flujos de Merge
+Las fusiones de código se trataran de distinta manera según el destino para optimizar el historial:
+*   **Hacia `develop`:** Los Pull Requests desde ramas `feature/*` se integrarán usando **Squash and Merge**. Esto colapsa todos los commits intermedios de la rama de trabajo en un único commit limpio en `develop`.
+*   **Hacia `main`:** Los pases a producción desde `release/*` o `hotfix/*` se harán mediante un **Merge Commit (No Fast-Forward / `--no-ff`)**. Esto deja un "nudo" visible en el árbol de Git que marca exactamente cuándo ocurrió el lanzamiento.
 
 ## Como ejecutar de forma local
 
