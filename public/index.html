@@ -188,14 +188,24 @@
             const direccion = document.getElementById('direccion').value;
             const comuna = document.getElementById('comuna').value;
 
-            // Crear un nuevo elemento para la lista
+            // Crear un nuevo elemento para la lista (usando textContent para evitar XSS)
             const nuevoItem = document.createElement('div');
             nuevoItem.className = 'list-item';
-            nuevoItem.innerHTML = `
-                <div><strong>Nombre:</strong> ${nombre}</div>
-                <div><strong>Dirección:</strong> ${direccion}</div>
-                <div><strong>Comuna:</strong> ${comuna}</div>
-            `;
+
+            const camposConfig = [
+                { etiqueta: 'Nombre:', valor: nombre },
+                { etiqueta: 'Dirección:', valor: direccion },
+                { etiqueta: 'Comuna:', valor: comuna }
+            ];
+
+            camposConfig.forEach(function(campo) {
+                const fila = document.createElement('div');
+                const etiquetaEl = document.createElement('strong');
+                etiquetaEl.textContent = campo.etiqueta;
+                fila.appendChild(etiquetaEl);
+                fila.appendChild(document.createTextNode(' ' + campo.valor));
+                nuevoItem.appendChild(fila);
+            });
 
             // Agregar el nuevo elemento a la lista en el HTML
             listaDatos.appendChild(nuevoItem);
