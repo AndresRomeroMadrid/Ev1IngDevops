@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Node.js</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .list-container {
+            width: 100%;
+            max-width: 400px;
+        }
+        .list-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            border-left: 5px solid #007bff;
+        }
+        .list-item strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Registro de Datos</h2>
+        <form id="dataForm">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required placeholder="Ingresa tu nombre">
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" required placeholder="Ingresa tu dirección">
+            </div>
+            <div class="form-group">
+                <label for="comuna">Comuna:</label>
+                <input type="text" id="comuna" required placeholder="Ingresa tu comuna">
+            </div>
+            <button type="submit">Agregar</button>
+        </form>
+    </div>
+
+    <div class="list-container" id="listaDatos">
+        <!-- Los datos agregados aparecerán aquí -->
+    </div>
+
+    <script>
+        const form = document.getElementById('dataForm');
+        const listaDatos = document.getElementById('listaDatos');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita que la página se recargue
+
+            // Obtener los valores de los inputs
+            const nombre = document.getElementById('nombre').value;
+            const direccion = document.getElementById('direccion').value;
+            const comuna = document.getElementById('comuna').value;
+
+            // Crear un nuevo elemento para la lista
+            const nuevoItem = document.createElement('div');
+            nuevoItem.className = 'list-item';
+            nuevoItem.innerHTML = `
+                <div><strong>Nombre:</strong> ${nombre}</div>
+                <div><strong>Dirección:</strong> ${direccion}</div>
+                <div><strong>Comuna:</strong> ${comuna}</div>
+            `;
+
+            // Agregar el nuevo elemento a la lista en el HTML
+            listaDatos.appendChild(nuevoItem);
+
+            // Limpiar el formulario
+            form.reset();
+            document.getElementById('nombre').focus();
+        });
+    </script>
+</body>
+</html>
