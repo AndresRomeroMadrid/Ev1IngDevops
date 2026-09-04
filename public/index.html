@@ -124,6 +124,30 @@
             width: 18px;
             height: 18px;
         }
+        .instagram-login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 0;
+            background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            height: 41px;
+            margin-bottom: 20px;
+        }
+        .instagram-login-btn:hover {
+            filter: brightness(0.95);
+        }
+        .instagram-login-btn .instagram-logo {
+            width: 18px;
+            height: 18px;
+        }
     </style>
 </head>
 <body>
@@ -144,6 +168,12 @@
                 <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
             </svg>
             Iniciar sesión con Google
+        </button>
+        <button type="button" class="instagram-login-btn" id="instagramLoginBtn">
+            <svg class="instagram-logo" viewBox="0 0 24 24" fill="#fff">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            </svg>
+            Iniciar sesión con Instagram
         </button>
         <form id="dataForm">
             <div class="form-group">
@@ -175,6 +205,11 @@
         const googleLoginBtn = document.getElementById('googleLoginBtn');
         googleLoginBtn.addEventListener('click', function() {
             alert('Inicio de sesión con Google no implementado. Este botón es solo de interfaz.');
+        });
+
+        const instagramLoginBtn = document.getElementById('instagramLoginBtn');
+        instagramLoginBtn.addEventListener('click', function() {
+            alert('Inicio de sesión con Instagram no implementado. Este botón es solo de interfaz.');
         });
 
         const form = document.getElementById('dataForm');
