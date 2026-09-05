@@ -42,6 +42,11 @@ Las fusiones de código se trataran de distinta manera según el destino para op
 *   **Hacia `develop`:** Los Pull Requests desde ramas `feature/*` se integrarán usando **Squash and Merge**. Esto colapsa todos los commits intermedios de la rama de trabajo en un único commit limpio en `develop`.
 *   **Hacia `main`:** Los pases a producción desde `release/*` o `hotfix/*` se harán mediante un **Merge Commit (No Fast-Forward / `--no-ff`)**. Esto deja un "nudo" visible en el árbol de Git que marca exactamente cuándo ocurrió el lanzamiento.
 
+### 5. Herramientas de Asistencia Inteligente
+Para garantizar la calidad de la documentación y optimizar el proceso de integración, este proyecto se ha apoyado en el uso de **Antigravity** y **Claude**. Estas herramientas de inteligencia artificial y automatización se utilizaron específicamente para:
+*   Mejorar la redacción, claridad y formato de este documento (README).
+*   Facilitar y agilizar el flujo de trabajo de los Pull Requests.
+
 ## Como ejecutar de forma local
 
 1. Asegurese de tener Node.js instalado.
